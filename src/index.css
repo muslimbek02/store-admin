@@ -1,0 +1,22 @@
+@tailwind base;
+@layer base {
+  html {
+    font-size: 16px;
+  }
+}
+
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+  font-family: "Gilroy-Bold"; 
+  src: local("Gilroy-Bold"),
+    url("./fonts/Gilroy-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Inter";
+  src: local("Inter"),
+    url("./fonts/static/Inter-SemiBold.ttf") format("truetype");
+}
