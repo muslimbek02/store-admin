@@ -1,7 +1,7 @@
 import AddStoreForm from "../AddStoreForm";
 import HeadingText from "../HeadingText";
 import HrLine from "../HrLine";
-import StoresTable from "../StoresTable";
+import StoresList from "../StoresList";
 
 const MainContent = () => {
   return (
@@ -12,7 +12,7 @@ const MainContent = () => {
       <HrLine />
       <div className="mt-[32px] px-[32px]">
         <AddStoreForm />
-        <StoresTable />
+        <StoresList />
       </div>
     </div>
   );
