@@ -4,7 +4,7 @@ import DayWorkTime from "../DayWorkTime";
 
 const AddStoreContent = () => {
   const { days, store, weekdays, openWeekTimes, closeWeekTimes, toggles } =
-    useSelector((state) => state.storeState);
+    useSelector((state) => state.shop);
 
   const dispatch = useDispatch();
 

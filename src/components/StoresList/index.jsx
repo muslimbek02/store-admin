@@ -1,8 +1,15 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { TiDelete } from "react-icons/ti";
+import { deleteStoreItem } from "../../redux/slices/storesSlices";
 
 const StoresList = () => {
-  const { stores } = useSelector((state) => state.storeState);
+  const { stores } = useSelector((state) => state.shop);
+
+  const disptach = useDispatch();
+  
+  const handleDelete = (id) => {
+    disptach(deleteStoreItem(id));
+  };
 
   return (
     <div className="mt-[16px]">
@@ -13,15 +20,18 @@ const StoresList = () => {
           <div className="w-[128px] ">Действие</div>
         </li>
         {stores.length > 0 &&
-          stores.map((item) => (
+          stores.map(({ id, name, size }) => (
             <li
-              key={item.name}
+              key={id}
               className="flex justify-between items-center mt-[12px] bg-[#FBFBFB] py-[8px] px-[16px] rounded-2xl"
             >
-              <div className="w-[256px] text-[#4993DD]">{item.name}</div>
-              <div className="w-[256px] text-[#6F6F6F]">{item.size}</div>
+              <div className="w-[256px] text-[#4993DD]">{name}</div>
+              <div className="w-[256px] text-[#6F6F6F]">{size}</div>
               <div className="w-[128px]">
-                <button className="w-[40px] flex items-center justify-center h-[40px] text-white bg-[#EB5757] rounded-xl">
+                <button
+                  onClick={() => handleDelete(id)}
+                  className="w-[40px] flex items-center justify-center h-[40px] text-white bg-[#EB5757] rounded-xl"
+                >
                   <TiDelete className="text-[20px]" />
                 </button>
               </div>

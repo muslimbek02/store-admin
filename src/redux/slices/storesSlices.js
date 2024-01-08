@@ -19,7 +19,9 @@ const weekdays = [
   "Sunday",
 ];
 
-const stores = localStorage.getItem('stores') ? JSON.parse(localStorage.getItem('stores')) : [];
+const stores = localStorage.getItem("stores")
+  ? JSON.parse(localStorage.getItem("stores"))
+  : [];
 
 const store = {
   name: "",
@@ -64,7 +66,7 @@ const initialState = {
 };
 
 const storesSlice = createSlice({
-  name: "stores",
+  name: "shop",
   initialState,
   reducers: {
     setStoreName: (state, action) => {
@@ -101,20 +103,21 @@ const storesSlice = createSlice({
       if (state.store.name && state.store.size) {
         const newObj = {
           ...state.store,
-          id: state.stores.length + 1
+          id: Date.now(),
         };
         const newArr = [...state.stores, newObj];
         state.stores = newArr;
         window.localStorage.setItem("stores", JSON.stringify(newArr));
-        state.store = {name: '', size: ''};
-        console.log(newArr);
+        state.store = { name: "", size: "" };
         alert("Magazin muvaffaqiyatli qoshildi");
       } else {
         alert("Iltimos malumotlarni kiriting!");
       }
     },
-    deleteStoreItem: (state, action) => {
-      
+    deleteStoreItem: (state, { payload }) => {
+      const filteredStores = state.stores.filter((item) => item.id !== payload);
+      state.stores = filteredStores;
+      window.localStorage.setItem("stores", JSON.stringify(filteredStores));
     },
   },
 });
