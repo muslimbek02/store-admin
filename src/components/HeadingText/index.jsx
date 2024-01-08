@@ -1,7 +1,7 @@
 
-const HeadingText = () => {
+const HeadingText = ({children}) => {
   return (
-    <h1 className="font-gilroy text-[36px] font-normal">Настройки магазинов</h1>
+    <h1 className="font-gilroy text-[36px] font-normal">{children}</h1>
   )
 }
 
