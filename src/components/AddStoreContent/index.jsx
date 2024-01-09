@@ -17,7 +17,7 @@ const AddStoreContent = () => {
   };
 
   return (
-    <div className="flex text-[#6F6F6F] mt-[32px] pl-[32px] pr-[92px]">
+    <div className="flex dark:text-white text-[#6F6F6F] mt-[32px] pl-[32px] pr-[92px]">
       <div className="w-[196px]">
         <h4 className="text-[24px] font-gilroy font-normal">Основные</h4>
       </div>
@@ -29,7 +29,7 @@ const AddStoreContent = () => {
               type="text"
               value={store.name}
               onChange={handleChangeName}
-              className="bg-[#F9F9F9] block w-full h-[56px] rounded-[16px] pl-[16px] mt-[16px]"
+              className="placeholder:text-[#BDBDBD] bg-[#F9F9F9] dark:bg-[#404040] block w-full h-[56px] rounded-[16px] pl-[16px] mt-[16px]"
             />
           </div>
           <div className="w-[50%]">
@@ -38,10 +38,11 @@ const AddStoreContent = () => {
               <input
                 type="text"
                 value={store.size}
+                placeholder="Введите квадратуру"
                 onChange={handleChangeSize}
-                className="bg-[#F9F9F9] block w-full h-[56px] rounded-[16px] pl-[16px] mt-[16px]"
+                className="placeholder:dark:text-[#6F6F6F] placeholder:text-[#BDBDBD] dark:bg-[#404040] bg-[#F9F9F9] block w-full h-[56px] rounded-[16px] pl-[16px] mt-[16px]"
               />
-              <span className="text-[#BDBDBD] absolute right-0 top-0 w-[56px] flex items-center justify-center h-[56px]">
+              <span className="dark:text-[#6F6F6F] text-[#BDBDBD] absolute right-0 top-0 w-[56px] flex items-center justify-center h-[56px]">
                 м<sup>2</sup>
               </span>
             </div>

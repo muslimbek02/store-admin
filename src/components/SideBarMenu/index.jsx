@@ -16,7 +16,7 @@ const SideBarMenu = () => {
   return (
     <ul className="mt-[48px]">
       <SideBarMenuItem>
-        <FaAngleLeft />
+        <FaAngleLeft className="dark:text-[#6F6F6F]" />
         <img src={SettingIcon} alt="setting icon" className="ml-[16px]" />
         <span className="ml-[16px]">Настройки</span>
       </SideBarMenuItem>

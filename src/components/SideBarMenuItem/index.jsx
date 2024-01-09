@@ -5,7 +5,7 @@ const SideBarMenuItem = ({ children }) => {
     <li>
       <Link
         to="/"
-        className="flex items-center px-[32px] py-[12px] font-gilroy font-normal text-[#6F6F6F] hover:text-textActiveColor hover:bg-[#E0E7EE]"
+        className="dark:text-white dark:hover:text-[#60A5FA] dark:bg- dark:hover:bg-[#5E5E5E] flex items-center px-[32px] py-[12px] font-gilroy font-normal text-[#6F6F6F] hover:text-textActiveColor hover:bg-[#E0E7EE]"
       >
         {children}
       </Link>

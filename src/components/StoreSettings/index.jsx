@@ -5,11 +5,11 @@ import { FiPlus } from "react-icons/fi";
 const StoreSettings = () => {
   return (
     <div className="flex">
-      <div className="h-[56px] grow relative text-[#BDBDBD]">
+      <div className="h-[56px] grow relative dark:text-[#6F6F6F] text-[#BDBDBD]">
         <IoSearchSharp className="absolute text-[20px] left-[16px] font-black top-1/2 -translate-y-1/2" />
         <input
           type="text"
-          className="w-full h-full pl-[48px] bg-[#F9F9F9] rounded-2xl"
+          className="w-full h-full pl-[48px] text-black dark:text-white dark:bg-[#404040] bg-[#F9F9F9] rounded-2xl"
           name="store-name"
           placeholder="Название магазина"
         />
