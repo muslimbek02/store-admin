@@ -4,10 +4,9 @@ const initialState = {
   phoneNumbers: [
     {
       id: 1,
-      phone: ''
+      phone: "",
     },
   ],
-
 };
 
 const formDataSlice = createSlice({
@@ -15,18 +14,21 @@ const formDataSlice = createSlice({
   initialState,
   reducers: {
     addNewPhone: (state, action) => {
-      const newPhone = {id: Date.now(), phone: ''};
+      const newPhone = { id: Date.now(), phone: "" };
       state.phoneNumbers.push(newPhone);
     },
-    deleteNewPhone: (state, {payload}) => {
-      const filteredPhones = state.phoneNumbers.filter(item => item.id !== payload);
+    deleteNewPhone: (state, { payload }) => {
+      const filteredPhones = state.phoneNumbers.filter(
+        (item) => item.id !== payload
+      );
       state.phoneNumbers = filteredPhones;
     },
-    handlePhoneNumChange: (state, {payload}) => {
+    handlePhoneNumChange: (state, { payload }) => {
       state.phoneNumbers[payload.index].phone = payload.value;
-    }
+    },
   },
 });
 
-export const {addNewPhone, deleteNewPhone, handlePhoneNumChange} = formDataSlice.actions;
+export const { addNewPhone, deleteNewPhone, handlePhoneNumChange } =
+  formDataSlice.actions;
 export default formDataSlice.reducer;

@@ -2,6 +2,7 @@ import AddStoreHeader from "../AddStoreHeader"
 import HrLine from "../HrLine"
 import AddStoreContent from "../AddStoreContent";
 import AddStoreContact from "../AddStoreContact";
+import AddStoreRequisites from "../AddStoreRequisites";
 
 const AddStoreMain = () => {
 
@@ -12,6 +13,8 @@ const AddStoreMain = () => {
       <AddStoreContent />
       <HrLine />
       <AddStoreContact />
+      <HrLine />
+      <AddStoreRequisites />
     </div>
   )
 }
