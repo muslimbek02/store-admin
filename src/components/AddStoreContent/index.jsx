@@ -1,5 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { setStoreName, setStoreSize } from "../../redux/slices/storesSlices";
+import ContentContainer from "../ContentContainer";
+import ContentTitle from "../ContentTitle";
 import DayWorkTime from "../DayWorkTime";
 
 const AddStoreContent = () => {
@@ -17,14 +19,14 @@ const AddStoreContent = () => {
   };
 
   return (
-    <div className="flex dark:text-white text-[#6F6F6F] mt-[32px] pl-[32px] pr-[92px]">
+    <ContentContainer>
       <div className="w-[196px]">
-        <h4 className="text-[24px] font-gilroy font-normal">Основные</h4>
+        <ContentTitle>Основные</ContentTitle>
       </div>
       <div className="w-[calc(100%-196px)] pl-[32px]">
         <div className="flex gap-x-[32px]">
           <div className="w-[50%]">
-            <h6>Наименование</h6>
+            <label>Наименование</label>
             <input
               type="text"
               value={store.name}
@@ -33,7 +35,7 @@ const AddStoreContent = () => {
             />
           </div>
           <div className="w-[50%]">
-            <h6>Квадратура</h6>
+            <label>Квадратура</label>
             <div className="relative">
               <input
                 type="text"
@@ -62,7 +64,7 @@ const AddStoreContent = () => {
           ))}
         </div>
       </div>
-    </div>
+    </ContentContainer>
   );
 };
 

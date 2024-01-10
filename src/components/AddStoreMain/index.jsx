@@ -1,6 +1,7 @@
 import AddStoreHeader from "../AddStoreHeader"
 import HrLine from "../HrLine"
 import AddStoreContent from "../AddStoreContent";
+import AddStoreContact from "../AddStoreContact";
 
 const AddStoreMain = () => {
 
@@ -9,6 +10,8 @@ const AddStoreMain = () => {
       <AddStoreHeader />
       <HrLine />
       <AddStoreContent />
+      <HrLine />
+      <AddStoreContact />
     </div>
   )
 }
