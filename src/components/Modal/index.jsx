@@ -23,10 +23,6 @@ const Modal = () => {
                 <td>{selectedStore?.size}</td>
               </tr>
               <tr>
-                <td>Bank shots</td>
-                <td>{selectedStore.bankShots[0].shotNumber}</td>
-              </tr>
-              <tr>
                 <td>site</td>
                 <td>{selectedStore?.site}</td>
               </tr>
