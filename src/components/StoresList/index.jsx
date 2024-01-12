@@ -1,15 +1,19 @@
 import { useSelector, useDispatch } from "react-redux";
 import { TiDelete } from "react-icons/ti";
-import { deleteStoreItem } from "../../redux/slices/storesSlices";
+import { deleteStoreItem, setSelectedStore, setShowModal } from "../../redux/slices/storesSlices";
 
 const StoresList = () => {
   const { stores } = useSelector((state) => state.shop);
 
-  const disptach = useDispatch();
+  const dispatch = useDispatch();
   
   const handleDelete = (id) => {
-    disptach(deleteStoreItem(id));
+    dispatch(deleteStoreItem(id));
   };
+  const openStore = (id) => {
+    dispatch(setSelectedStore(id));
+    dispatch(setShowModal(true));
+  }
 
   return (
     <div className="mt-[16px]">
@@ -25,7 +29,7 @@ const StoresList = () => {
               key={id}
               className="flex justify-between items-center mt-[12px] dark:bg-[#313131] bg-[#FBFBFB] py-[8px] px-[16px] rounded-2xl"
             >
-              <div className="w-[256px] text-[#4993DD] dark:text-[#60A5FA]">{name}</div>
+              <div role="button" onClick={() => openStore(id)} className="cursor-pointer w-[256px] text-[#4993DD] dark:text-[#60A5FA]">{name}</div>
               <div className="w-[256px] dark:text-white text-[#6F6F6F]">{size}</div>
               <div className="w-[128px]">
                 <button

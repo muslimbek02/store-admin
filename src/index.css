@@ -77,3 +77,45 @@
 .slider.round:before {
   border-radius: 50%;
 }
+
+
+
+
+.help-check-radio {
+  display: inline-block;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #EAEAEA;
+}
+.help-check-radio::after {
+  content: '';
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  left: 10px;
+  top: 5px;
+  width: 10px;
+  height: 15px;
+  border-right: 3px solid #fff;
+  border-bottom: 3px solid #fff;
+  transform: rotate(45deg);
+}
+.check-radio:checked + .help-check-radio {
+  background-color: blue;
+}
+.check-radio:checked + .help-check-radio::after {
+  visibility: visible;
+  opacity: 1;
+}
+
+.store-table {
+  border-collapse: collapse;
+  
+}
+.store-table tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+}

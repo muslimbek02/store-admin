@@ -7,15 +7,34 @@ import MyInput from "../MyInput";
 import {
   addNewPhone,
   deleteNewPhone,
+  handleInstaTelegram,
+  handleNetworks,
   handlePhoneNumChange,
-} from "../../redux/slices/formDataSlice";
+} from "../../redux/slices/storesSlices";
 
 const AddStoreContact = () => {
-  const { phoneNumbers } = useSelector((state) => state.formdata);
+  const { phoneNumbers, networks, instaTelegram } = useSelector(
+    (state) => state.shop
+  );
+
   const dispatch = useDispatch();
 
   const handlePhoneChange = (index, value) => {
     dispatch(handlePhoneNumChange({ index, value }));
+  };
+
+  const handleChangeNetworks = (evt) => {
+    const network = { [evt.target.name]: evt.target.value };
+    dispatch(handleNetworks(network));
+  };
+
+  const handleChangeInstaTel = (evt) => {
+    const instaTel = {
+      [evt.target.name]: instaTelegram[evt.target.name] === ''
+        ? "@" + evt.target.value
+        : evt.target.value
+    };
+    dispatch(handleInstaTelegram(instaTel));
   };
 
   return (
@@ -51,6 +70,7 @@ const AddStoreContact = () => {
                 +998
               </span>
               <button
+                type="button"
                 onClick={() => dispatch(deleteNewPhone(id))}
                 className="absolute w-[56px] h-[56px] top-0 right-0 h-full flex items-center justify-center"
               >
@@ -60,6 +80,7 @@ const AddStoreContact = () => {
           ))}
           <div className="w-full">
             <button
+              type="button"
               onClick={() => dispatch(addNewPhone())}
               className="dark:bg-[#404040] dark:text-white font-inter block w-full flex items-center justify-center rounded-[16px] h-[56px] bg-[#F9F9F9] text-[#4993DD]"
             >
@@ -71,19 +92,43 @@ const AddStoreContact = () => {
         <div className="grid grid-cols-2 gap-[32px] mt-[32px]">
           <div className="w-full">
             <label className=" block mb-[16px]">Facebook</label>
-            <MyInput type="text" placeholder="Название страницы" />
+            <MyInput
+              type="text"
+              placeholder="Название страницы"
+              name="facebook"
+              value={networks.facebook}
+              onChange={handleChangeNetworks}
+            />
           </div>
           <div className="w-full">
             <label className=" block mb-[16px]">Instagram</label>
-            <MyInput type="text" placeholder="@ Юзернейм" />
+            <MyInput
+              type="text"
+              value={instaTelegram.instagram}
+              placeholder="@ Юзернейм"
+              name="instagram"
+              onChange={handleChangeInstaTel}
+            />
           </div>
           <div className="w-full">
             <label className=" block mb-[16px]">Telegram</label>
-            <MyInput type="text" placeholder="@ Юзернейм" />
+            <MyInput
+              type="text"
+              value={instaTelegram.telegram}
+              name="telegram"
+              onChange={handleChangeInstaTel}
+              placeholder="@ Юзернейм"
+            />
           </div>
           <div className="w-full">
-            <label className=" block mb-[16px]">Сайт</label>
-            <MyInput type="text" placeholder="Ссылка на сайт" />
+            <label className="block mb-[16px]">Сайт</label>
+            <MyInput
+              type="text"
+              value={networks.site}
+              name="site"
+              placeholder="Ссылка на сайт"
+              onChange={handleChangeNetworks}
+            />
           </div>
         </div>
       </div>

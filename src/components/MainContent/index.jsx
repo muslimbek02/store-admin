@@ -2,6 +2,7 @@ import StoreSettings from "../StoreSettings";
 import HeadingText from "../HeadingText";
 import HrLine from "../HrLine";
 import StoresList from "../StoresList";
+import Modal from "../Modal";
 
 const MainContent = () => {
   return (
@@ -14,6 +15,7 @@ const MainContent = () => {
         <StoreSettings />
         <StoresList />
       </div>
+      <Modal />
     </div>
   );
 };

@@ -49,7 +49,7 @@ const Logo = () => {
       </Link>
       <button
         onClick={toggleTheme}
-        className="dark:bg-[red] hover:bg-[#E0E7EE] ml-[25px] text-[25px] flex items-center justify-center w-[40px] h-[40px] rounded-full"
+        className="hover:bg-[#E0E7EE] dark:hover:bg-[#202020] ml-[25px] text-[25px] flex items-center justify-center w-[40px] h-[40px] rounded-full"
       >
         {theme === "dark" ? <MdLightMode /> : <MdDarkMode />}
       </button>
