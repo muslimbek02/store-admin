@@ -41,7 +41,7 @@ const DayWorkTime = ({ day, toggle, openTime, closeTime, engDay }) => {
           type="text"
           disabled={!toggle}
           placeholder="XX:XX"
-          className={`bg-[#F9F9F9] dark:bg-[#404040] ml-[8px] outline-0 block h-[56px] w-[64px] ${
+          className={`notfocus bg-[#F9F9F9] dark:bg-[#404040] ml-[8px] outline-0 block h-[56px] w-[64px] ${
             toggle ? "dark:border-[#1F78FF] border-y-[3px] border-[#4993DD]" : ""
           }`}
         />
@@ -54,7 +54,7 @@ const DayWorkTime = ({ day, toggle, openTime, closeTime, engDay }) => {
           onChange={handleChangeCloseTime}
           placeholder="XX:XX"
           disabled={!toggle}
-          className={`bg-[#F9F9F9] dark:bg-[#404040] ml-[8px] outline-0 block h-[56px] w-[64px] ${
+          className={`notfocus bg-[#F9F9F9] dark:bg-[#404040] ml-[8px] outline-0 block h-[56px] w-[64px] ${
             toggle ? "dark:border-[#1F78FF] border-y-[3px] border-[#4993DD]" : ""
           }`}
         />

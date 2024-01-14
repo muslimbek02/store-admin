@@ -13,11 +13,11 @@ import {
 import ContentContainer from "../ContentContainer";
 import ContentTitle from "../ContentTitle";
 import MyInput from "../MyInput";
+import visaLogo from "../../assets/visa-logo.jpg";
+import masterCardLogo from "../../assets/mastercard-logo.png";
 
 const AddStoreRequisites = () => {
-  const { requisite, bankShots, legal } = useSelector(
-    (state) => state.shop
-  );
+  const { requisite, bankShots, legal } = useSelector((state) => state.shop);
   const dispatch = useDispatch();
 
   const handleChangeBankShots = (index, shotNumber) => {
@@ -32,6 +32,10 @@ const AddStoreRequisites = () => {
       for (const key in obj) {
         if (!obj[key]) {
           return false; // If any key has a non-empty value, return false
+        } else {
+          if (obj.shotNumber.includes("_")) {
+            return false;
+          }
         }
       }
     }
@@ -41,9 +45,9 @@ const AddStoreRequisites = () => {
   const isAddBankShots = areObjectValuesEmpty(bankShots);
 
   const handleChangeLegal = (evt) => {
-    const newLegal = {[evt.target.name]: evt.target.value};
+    const newLegal = { [evt.target.name]: evt.target.value };
     dispatch(setLegal(newLegal));
-  }
+  };
 
   return (
     <ContentContainer>
@@ -155,13 +159,24 @@ const AddStoreRequisites = () => {
         <div className="mt-[32px]">
           <h6 className="mb-[16px]">Банковский счет</h6>
           <div className="">
-            <MyInput
-              type="text"
-              style={{ borderRadius: "16px 16px 0 0" }}
-              placeholder="Введите банковский счет"
-              value={bankShots[0].shotNumber}
-              onChange={(evt) => handleChangeBankShots(0, evt.target.value)}
-            />
+            <div className="relative">
+              <MyInput
+                type="text"
+                style={{ borderRadius: "16px 16px 0 0" }}
+                placeholder="Введите банковский счет"
+                mask="9999 9999 9999 9999"
+                value={bankShots[0].shotNumber}
+                onChange={(evt) => handleChangeBankShots(0, evt.target.value)}
+              />
+              <div className="absolute flex items-center w-[70px] h-full right-[50px] top-0">
+                {bankShots[0].cardType === "visa" && (
+                  <img src={visaLogo} className="w-[70px] h-[35px]" />
+                )}
+                {bankShots[0].cardType === "master" && (
+                  <img src={masterCardLogo} className="w-[70px] h-[35px]" />
+                )}
+              </div>
+            </div>
             <div className="w-full h-[2px] bg-[#EAEAEA] dark:bg-[#5E5E5E]"></div>
             <MyInput
               type="text"
@@ -171,45 +186,56 @@ const AddStoreRequisites = () => {
               onChange={(evt) => handleChangeBankNames(0, evt.target.value)}
             />
           </div>
-          {bankShots.slice(1).map(({ id, title, shotNumber }, index) => (
-            <div className="mt-[8px]" key={id}>
-              <div className="relative">
-                <MyInput
-                  type="text"
-                  style={{ borderRadius: "16px 16px 0 0" }}
-                  placeholder="Введите банковский счет"
-                  value={shotNumber}
-                  onChange={(evt) =>
-                    handleChangeBankShots(index + 1, evt.target.value)
-                  }
-                />
-                <span
-                  onClick={() => dispatch(deleteBankShot(id))}
-                  className="text-[#EB5757] absolute top-0 w-[56px] h-[56px] flex items-center justify-center cursor-pointer right-0 text-[22px]"
-                >
-                  <TiDelete />
-                </span>
+          {bankShots
+            .slice(1)
+            .map(({ id, title, shotNumber, cardType }, index) => (
+              <div className="mt-[8px]" key={id}>
+                <div className="relative">
+                  <MyInput
+                    type="text"
+                    style={{ borderRadius: "16px 16px 0 0" }}
+                    placeholder="Введите банковский счет"
+                    value={shotNumber}
+                    mask="9999 9999 9999 9999"
+                    onChange={(evt) =>
+                      handleChangeBankShots(index + 1, evt.target.value)
+                    }
+                  />
+                  <span
+                    onClick={() => dispatch(deleteBankShot(id))}
+                    className="text-[#EB5757] absolute top-0 w-[56px] h-[56px] flex items-center justify-center cursor-pointer right-0 text-[22px]"
+                  >
+                    <TiDelete />
+                  </span>
+                  <div className="absolute flex items-center w-[70px] h-full right-[70px] top-0">
+                    {cardType === "visa" && (
+                      <img src={visaLogo} className="w-[70px] h-[35px]" />
+                    )}
+                    {cardType === "master" && (
+                      <img src={masterCardLogo} className="w-[70px] h-[35px]" />
+                    )}
+                  </div>
+                </div>
+                <div className="w-full h-[2px] bg-[#EAEAEA] dark:bg-[#5E5E5E]"></div>
+                <div className="relative">
+                  <MyInput
+                    type="text"
+                    style={{ borderRadius: "0 0 16px 16px" }}
+                    placeholder="Название банка и филиал"
+                    value={title}
+                    onChange={(evt) =>
+                      handleChangeBankNames(index + 1, evt.target.value)
+                    }
+                  />
+                  <span
+                    onClick={() => dispatch(deleteBankShot(id))}
+                    className="text-[#EB5757] absolute top-0 w-[56px] h-[56px] flex items-center justify-center cursor-pointer right-0 text-[22px]"
+                  >
+                    <TiDelete />
+                  </span>
+                </div>
               </div>
-              <div className="w-full h-[2px] bg-[#EAEAEA] dark:bg-[#5E5E5E]"></div>
-              <div className="relative">
-                <MyInput
-                  type="text"
-                  style={{ borderRadius: "0 0 16px 16px" }}
-                  placeholder="Название банка и филиал"
-                  value={title}
-                  onChange={(evt) =>
-                    handleChangeBankNames(index + 1, evt.target.value)
-                  }
-                />
-                <span
-                  onClick={() => dispatch(deleteBankShot(id))}
-                  className="text-[#EB5757] absolute top-0 w-[56px] h-[56px] flex items-center justify-center cursor-pointer right-0 text-[22px]"
-                >
-                  <TiDelete />
-                </span>
-              </div>
-            </div>
-          ))}
+            ))}
           <button
             onClick={() => dispatch(addNewBankShot())}
             className={`mt-[16px] w-full flex items-center justify-center py-[18px] rounded-[16px] ${

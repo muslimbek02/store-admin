@@ -1,19 +1,23 @@
 import { useSelector, useDispatch } from "react-redux";
 import { TiDelete } from "react-icons/ti";
-import { deleteStoreItem, setSelectedStore, setShowModal } from "../../redux/slices/storesSlices";
+import {
+  deleteStoreItem,
+  setSelectedStore,
+  setShowModal,
+} from "../../redux/slices/storesSlices";
 
 const StoresList = () => {
-  const { stores } = useSelector((state) => state.shop);
+  const { filteredStores } = useSelector((state) => state.shop);
 
   const dispatch = useDispatch();
-  
+
   const handleDelete = (id) => {
     dispatch(deleteStoreItem(id));
   };
   const openStore = (id) => {
     dispatch(setSelectedStore(id));
     dispatch(setShowModal(true));
-  }
+  };
 
   return (
     <div className="mt-[16px]">
@@ -23,14 +27,22 @@ const StoresList = () => {
           <div className="w-[256px]">Кол-во касс</div>
           <div className="w-[128px] ">Действие</div>
         </li>
-        {stores.length > 0 &&
-          stores.map(({ id, name, size }) => (
+        {filteredStores.length > 0 ? (
+          filteredStores.map(({ id, name, size }) => (
             <li
               key={id}
               className="flex justify-between items-center mt-[12px] dark:bg-[#313131] bg-[#FBFBFB] py-[8px] px-[16px] rounded-2xl"
             >
-              <div role="button" onClick={() => openStore(id)} className="cursor-pointer w-[256px] text-[#4993DD] dark:text-[#60A5FA]">{name}</div>
-              <div className="w-[256px] dark:text-white text-[#6F6F6F]">{size}</div>
+              <div
+                role="button"
+                onClick={() => openStore(id)}
+                className="cursor-pointer w-[256px] text-[#4993DD] dark:text-[#60A5FA]"
+              >
+                {name}
+              </div>
+              <div className="w-[256px] dark:text-white text-[#6F6F6F]">
+                {size}
+              </div>
               <div className="w-[128px]">
                 <button
                   onClick={() => handleDelete(id)}
@@ -40,7 +52,10 @@ const StoresList = () => {
                 </button>
               </div>
             </li>
-          ))}
+          ))
+        ) : (
+          <p>Stores no</p>
+        )}
       </ul>
     </div>
   );

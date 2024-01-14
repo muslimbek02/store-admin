@@ -78,6 +78,8 @@ const AddStoreHeader = () => {
       } else {
         if (item.shotNumber === "") {
           return false;
+        } else if (item.shotNumber.includes("_")) {
+          return false;
         }
       }
     }
@@ -92,7 +94,7 @@ const AddStoreHeader = () => {
     <div className="px-[32px] mb-[32px] flex items-center justify-between">
       <div className="flex items-center">
         <Link
-          to="/"
+          to="/stores"
           className="w-[48px] h-[48px] dark:bg-[#3F3F3F] bg-[#F9F9F9] me-[16px] rounded-full dark:text-white text-[#4993DD] flex items-center justify-center"
         >
           <FaAngleLeft />

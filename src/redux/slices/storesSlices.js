@@ -62,6 +62,7 @@ const initialState = {
   weekdays,
   store,
   stores,
+  filteredStores: stores,
   openWeekTimes,
   closeWeekTimes,
   toggles,
@@ -77,6 +78,7 @@ const initialState = {
       id: 1,
       title: "",
       shotNumber: "",
+      cardType: "",
     },
   ],
   checkType: "Стандартный",
@@ -131,7 +133,19 @@ const storesSlice = createSlice({
       };
     },
     addStoreItem: (state) => {
+      const workTimes = {};
+      for (const key in state.toggles) {
+        if (state.toggles[key]) {
+          if (state.closeWeekTimes[key] && state.openWeekTimes[key]) {
+            workTimes[key] = {
+              open: state.openWeekTimes[key],
+              close: state.closeWeekTimes[key],
+            };
+          }
+        }
+      }
       const newStore = {
+        workTimes,
         id: Date.now(),
         ...state.legal,
         ...state.instaTelegram,
@@ -143,6 +157,7 @@ const storesSlice = createSlice({
         phones: state.phoneNumbers,
       };
       state.stores.push(newStore);
+      state.filteredStores = state.stores;
       window.localStorage.setItem("stores", JSON.stringify(state.stores));
       state.legal = {
         legalCompany: "",
@@ -155,11 +170,21 @@ const storesSlice = createSlice({
           id: 1,
           title: "",
           shotNumber: "",
+          cardType: "",
         },
       ];
       state.store = {
         name: "",
         size: "",
+      };
+      state.toggles = {
+        Monday: false,
+        Tuesday: false,
+        Wednesday: false,
+        Thursday: false,
+        Friday: false,
+        Saturday: false,
+        Sunday: false,
       };
       state.checkType = "Стандартный";
       state.instaTelegram = {
@@ -198,6 +223,7 @@ const storesSlice = createSlice({
     deleteStoreItem: (state, { payload }) => {
       const filteredStores = state.stores.filter((item) => item.id !== payload);
       state.stores = filteredStores;
+      state.filteredStores = filteredStores;
       window.localStorage.setItem("stores", JSON.stringify(filteredStores));
     },
     addNewPhone: (state) => {
@@ -217,6 +243,15 @@ const storesSlice = createSlice({
       state.requisite = payload;
     },
     handleBankShotsChange: (state, { payload }) => {
+      if (payload.shotNumber.startsWith("4")) {
+        state.bankShots[payload.index].cardType = "visa";
+      } else {
+        if (payload.shotNumber.startsWith("5")) {
+          state.bankShots[payload.index].cardType = "master";
+        } else {
+          state.bankShots[payload.index].cardType = "unknown";
+        }
+      }
       state.bankShots[payload.index].shotNumber = payload.shotNumber;
     },
     handleBankNamesChange: (state, { payload }) => {
@@ -247,13 +282,17 @@ const storesSlice = createSlice({
       const newLegal = { ...state.legal, ...payload };
       state.legal = newLegal;
     },
-    setSelectedStore: (state, {payload}) => {
-      const findStore = state.stores.find(item => item.id === payload);
+    setSelectedStore: (state, { payload }) => {
+      const findStore = state.stores.find((item) => item.id === payload);
       state.selectedStore = findStore;
     },
-    setShowModal: (state, {payload}) => {
+    setShowModal: (state, { payload }) => {
       state.showModal = payload;
-    }
+    },
+    setFilteredStores: (state, {payload}) => {
+      const searchedStores = state.stores.filter(store => store.name.toLowerCase().includes(payload.toLowerCase()));
+      state.filteredStores = searchedStores;
+    },
   },
 });
 
@@ -265,6 +304,7 @@ export const {
   setOpenWeekTimes,
   addStoreItem,
   deleteStoreItem,
+  setFilteredStores,
   addNewPhone,
   deleteNewPhone,
   handlePhoneNumChange,

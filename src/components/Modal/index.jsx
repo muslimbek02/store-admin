@@ -4,73 +4,94 @@ import { setShowModal } from "../../redux/slices/storesSlices";
 const Modal = () => {
   const { selectedStore, showModal } = useSelector((state) => state.shop);
   const dispatch = useDispatch();
+  const workTimesList = [];
+  if (selectedStore?.workTimes) {
+    for (const key in selectedStore?.workTimes) {
+      workTimesList.push(
+        <tr key={key}>
+          <td>Режим работы:</td>
+          <td>
+            {key + ": " + selectedStore?.workTimes[key].open} -{" "}
+            {selectedStore?.workTimes[key].close}
+          </td>
+        </tr>
+      );
+    }
+  }
   return (
     <div
-      className={`bg-[#B8C3D0] ${
+      className={`bg-[rgba(0,0,0,0.6)] ${
         showModal ? "flex" : "hidden"
       } items-center justify-center fixed inset-x-0 inset-y-0`}
     >
-      <div className="p-[30px] text-black bg-white rounded-2xl w-1/2">
+      <div className="p-[30px] text-black overflow-auto bg-white dark:text-[white] dark:bg-[#404040] rounded-2xl w-1/2 h-[calc(100vh-60px)]">
         {selectedStore && (
-          <table className="store-table w-full border">
+          <table className="store-table w-full">
             <tbody>
               <tr>
-                <td>Name</td>
+                <td>Наименование</td>
                 <td>{selectedStore?.name}</td>
               </tr>
               <tr>
-                <td>Size</td>
+                <td>Квадратура</td>
                 <td>{selectedStore?.size}</td>
               </tr>
+              {workTimesList}
+              {selectedStore?.phones &&
+                selectedStore?.phones.map(({ id, phone }, index) => (
+                  <tr key={id}>
+                    <td>Телефон {index + 1}</td>
+                    <td>{phone}</td>
+                  </tr>
+                ))}
               <tr>
-                <td>site</td>
+                <td>Сайт</td>
                 <td>{selectedStore?.site}</td>
               </tr>
               <tr>
-                <td>facebook</td>
+                <td>Facebook</td>
                 <td>{selectedStore?.facebook}</td>
               </tr>
               <tr>
-                <td>telegram</td>
+                <td>Telegram</td>
                 <td>{selectedStore?.telegram}</td>
               </tr>
               <tr>
-                <td>instagram</td>
+                <td>Instagram</td>
                 <td>{selectedStore?.instagram}</td>
               </tr>
               <tr>
-                <td>legalCompany</td>
+                <td>Юридическое название компании</td>
                 <td>{selectedStore?.legalCompany}</td>
               </tr>
               <tr>
-                <td>legalCountry</td>
+                <td>Cтрана</td>
                 <td>{selectedStore?.legalCountry}</td>
               </tr>
               <tr>
-                <td>legalAddress</td>
+                <td>Юридический адрес</td>
                 <td>{selectedStore.legalAddress}</td>
               </tr>
               <tr>
-                <td>legalPostVode</td>
+                <td>Почтовый индекс</td>
                 <td>{selectedStore?.legalPostCode}</td>
               </tr>
+              {selectedStore?.bankShots &&
+                selectedStore.bankShots.map(({ shotNumber, id }, index) => (
+                  <tr key={id}>
+                    <td>Банковский счет {index + 1}</td>
+                    <td>{shotNumber}</td>
+                  </tr>
+                ))}
               <tr>
-                <td>legalAddress</td>
-                <td>{selectedStore?.legalAddress}</td>
-              </tr>
-              <tr>
-                <td>legalAddress</td>
-                <td>{selectedStore?.legalAddress}</td>
-              </tr>
-              <tr>
-                <td>legalAddress</td>
-                <td>{selectedStore?.legalAddress}</td>
+                <td>Чек</td>
+                <td>{selectedStore.checkType}</td>
               </tr>
             </tbody>
           </table>
         )}
         <button
-          className="py-[15px] px-[25px] bg-[#ccc] rounded-2xl mt-[16px]"
+          className="py-[10px] text-white px-[25px] bg-[#1F78FF] rounded-2xl mt-[16px]"
           onClick={() => dispatch(setShowModal(false))}
         >
           close
