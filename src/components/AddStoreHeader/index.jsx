@@ -1,12 +1,13 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaAngleLeft } from "react-icons/fa6";
 import HeadingText from "../HeadingText";
 import { addStoreItem } from "../../redux/slices/storesSlices";
 
 const AddStoreHeader = () => {
   const disptach = useDispatch();
-
+  const navigate = useNavigate();
   const {
     store,
     toggles,
@@ -23,6 +24,7 @@ const AddStoreHeader = () => {
 
   const addStore = () => {
     disptach(addStoreItem());
+    navigate('/stores');
   };
   let isData =
     store.name &&
@@ -89,6 +91,12 @@ const AddStoreHeader = () => {
   const isP = isPhones(phoneNumbers);
   const isBank = isShot(bankShots);
   const isSubmit = isT && isP && isBank && isData;
+
+  useEffect(() => {
+    if(isSubmit) {
+      document.documentElement.scrollTo({top: 0, behavior: 'smooth'});
+    }
+  }, [isSubmit]);
 
   return (
     <div className="px-[32px] mb-[32px] flex items-center justify-between">
